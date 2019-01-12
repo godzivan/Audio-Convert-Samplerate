@@ -183,9 +183,9 @@ class Audio::Convert::Samplerate:ver<0.0.8>:auth<github:jonathanstowe>:api<1.0> 
     class X::ConvertError is Exception {
         has Int $.error-code = 0;
 
-        sub src_strerror(int32 $error) returns Str is native('samplerate',v0) { * }
+        sub src_strerror(int32 $error --> Str ) is native('samplerate',v0) { * }
 
-        method message() returns Str {
+        method message( --> Str ) {
             src_strerror($!error-code);
         }
     }
@@ -193,7 +193,7 @@ class Audio::Convert::Samplerate:ver<0.0.8>:auth<github:jonathanstowe>:api<1.0> 
     class X::InvalidRatio is Exception {
         has Num $.ratio is required;
 
-        method message() returns Str {
+        method message( --> Str ) {
             "The convertion ratio { $!ratio } is not valid";
         }
     }
@@ -224,9 +224,9 @@ class Audio::Convert::Samplerate:ver<0.0.8>:auth<github:jonathanstowe>:api<1.0> 
 
     class State is repr('CPointer') {
 
-        sub src_new(int32 $converter-type, int32 $channels, int32 $error) returns State is native('samplerate',v0) { * }
+        sub src_new(int32 $converter-type, int32 $channels, int32 $error --> State ) is native('samplerate',v0) { * }
 
-        method new(Type $type, Int $channels) returns State {
+        method new(Type $type, Int $channels --> State) {
             my Int $error = 0;
             my $state = src_new($type.Int, $channels, $error);
 
@@ -237,9 +237,9 @@ class Audio::Convert::Samplerate:ver<0.0.8>:auth<github:jonathanstowe>:api<1.0> 
             $state;
         }
 
-        sub src_process(State $st, Data $d is rw) returns int32 is native('samplerate',v0) { * }
+        sub src_process(State $st, Data $d is rw --> int32) is native('samplerate',v0) { * }
 
-        multi method process(Data $data is rw) returns Data {
+        multi method process(Data $data is rw --> Data ) {
             my $rc = src_process(self, $data);
 
             if $rc != 0 {
@@ -249,18 +249,13 @@ class Audio::Convert::Samplerate:ver<0.0.8>:auth<github:jonathanstowe>:api<1.0> 
         }
 
         # put this in here as it simplifies matters
-        sub src_is_valid_ratio (num64 $ratio) returns int32 is native('samplerate',v0) { * }
+        sub src_is_valid_ratio (num64 $ratio --> int32 ) is native('samplerate',v0) { * }
 
-        method is-valid-ratio(Num $ratio) returns Bool {
-            if src_is_valid_ratio($ratio) {
-                True;
-            }
-            else {
-                False;
-            }
+        method is-valid-ratio(Num $ratio --> Bool ) {
+            so src_is_valid_ratio($ratio);
         }
 
-        sub src_set_ratio(State $state, num64 $new_ratio) returns int32 is native('samplerate',v0) { * }
+        sub src_set_ratio(State $state, num64 $new_ratio --> int32 ) is native('samplerate',v0) { * }
 
         method set-ratio(Num $new-ratio) {
             my $rc = src_set_ratio(self, $new-ratio);
@@ -270,7 +265,7 @@ class Audio::Convert::Samplerate:ver<0.0.8>:auth<github:jonathanstowe>:api<1.0> 
             }
         }
 
-        sub src_reset(State) returns int32 is native('samplerate',v0) { * }
+        sub src_reset(State --> int32 ) is native('samplerate',v0) { * }
 
         method reset() {
             my $rc = src_reset(self);
@@ -297,14 +292,14 @@ class Audio::Convert::Samplerate:ver<0.0.8>:auth<github:jonathanstowe>:api<1.0> 
         $!state = State.new($!type, $!channels);
     }
 
-    sub src_get_version() returns Str is native('samplerate',v0) { * }
+    sub src_get_version( --> Str ) is native('samplerate',v0) { * }
 
-    method samplerate-version() returns Version {
+    method samplerate-version( --> Version ) {
         my $v = src_get_version();
         Version.new($v);
     }
 
-    multi method process(CArray[num32] $data-in, Int $input-frames, Num() $src-ratio, Bool $last = False) returns RawProcess {
+    multi method process(CArray[num32] $data-in, Int $input-frames, Num() $src-ratio, Bool $last = False --> RawProcess ) {
 
         if not self.is-valid-ratio($src-ratio) {
             X::InvalidRatio.new.throw;
@@ -319,7 +314,7 @@ class Audio::Convert::Samplerate:ver<0.0.8>:auth<github:jonathanstowe>:api<1.0> 
         [ $data.data-out, $data.output-frames-gen ];
     }
 
-    method !process-other(Mu $type, CArray $data-in, Int $input-frames, Num() $src-ratio, Bool $last, &to, &from) returns RawProcess {
+    method !process-other(Mu $type, CArray $data-in, Int $input-frames, Num() $src-ratio, Bool $last, &to, &from --> RawProcess ) {
         my CArray[num32] $new-data = CArray[num32].new;
         my Int $total-frames = ($input-frames * $!channels).Int;
         $new-data[$total-frames] = Num(0);
@@ -332,27 +327,27 @@ class Audio::Convert::Samplerate:ver<0.0.8>:auth<github:jonathanstowe>:api<1.0> 
         [ $int-out, $frames-out ]
     }
 
-    multi method process(CArray[int16] $data-in, Int $input-frames, Num() $src-ratio, Bool $last = False) returns RawProcess {
+    multi method process(CArray[int16] $data-in, Int $input-frames, Num() $src-ratio, Bool $last = False --> RawProcess ) {
         self!process-other(int16, $data-in, $input-frames, $src-ratio, $last, &src_short_to_float_array, &src_float_to_short_array);
     }
 
-    multi method process(CArray[int32] $data-in, Int $input-frames, Num() $src-ratio, Bool $last = False) returns RawProcess {
+    multi method process(CArray[int32] $data-in, Int $input-frames, Num() $src-ratio, Bool $last = False --> RawProcess ) {
         self!process-other(int32, $data-in, $input-frames, $src-ratio, $last, &src_int_to_float_array, &src_float_to_int_array);
     }
 
-    method !process-array(Mu $type, @items, Num() $src-ratio, Bool $last = False) returns Array {
+    method !process-array(Mu $type, @items, Num() $src-ratio, Bool $last = False --> Array ) {
         my CArray $carray = copy-to-carray(@items, $type);
         my $frames = (@items.elems / $!channels).Int;
         my $ret = self.process($carray, $frames, $src-ratio, $last);
         copy-to-array($ret[0], $ret[1] * $!channels);
     }
-    method process-float(@items, Num() $src-ratio, Bool $last = False) returns Array {
+    method process-float(@items, Num() $src-ratio, Bool $last = False --> Array ) {
         self!process-array(num32, @items, $src-ratio, $last);
     }
-    method process-short(@items, Num() $src-ratio, Bool $last = False) returns Array {
+    method process-short(@items, Num() $src-ratio, Bool $last = False --> Array ) {
         self!process-array(int16, @items, $src-ratio, $last);
     }
-    method process-int(@items, Num() $src-ratio, Bool $last = False) returns Array {
+    method process-int(@items, Num() $src-ratio, Bool $last = False --> Array ) {
         self!process-array(int32, @items, $src-ratio, $last);
     }
 
