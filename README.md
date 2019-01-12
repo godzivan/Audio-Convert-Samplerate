@@ -51,12 +51,10 @@ Other install mechanisms may be become available in the future.
 
 ## Support
 
-Suggestions/patches are welcomed via github at
-
-https://github.com/jonathanstowe/Audio-Convert-Samplerate/issues
+Suggestions/patches are welcomed via github at https://github.com/jonathanstowe/Audio-Convert-Samplerate/issues
 
 ## Licence
 
 Please see the [LICENCE](LICENCE) file in the distribution
 
-© Jonathan Stowe 2015, 2016, 2017
+© Jonathan Stowe 2015, 2016, 2017, 2019
