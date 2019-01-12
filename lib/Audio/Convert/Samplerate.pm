@@ -1,4 +1,4 @@
-use v6.c;
+use v6;
 
 =begin pod
 
@@ -172,7 +172,7 @@ methods will throw an exception if supplied an invalid ratio.
 
 =end pod
 
-class Audio::Convert::Samplerate:ver<0.0.7>:auth<github:jonathanstowe> {
+class Audio::Convert::Samplerate:ver<0.0.8>:auth<github:jonathanstowe>:api<1.0> {
     use NativeCall;
     use NativeHelpers::Array;
 
