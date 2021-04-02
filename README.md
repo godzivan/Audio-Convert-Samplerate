@@ -2,7 +2,7 @@
 
 Convert the samplerate of PCM audio data using libsamplerate (AKA "Secret Rabbit Code".)
 
-[![Build Status](https://travis-ci.org/jonathanstowe/Audio-Convert-Samplerate.svg?branch=master)](https://travis-ci.org/jonathanstowe/Audio-Convert-Samplerate)
+![Build Status](https://github.com/jonathanstowe/Audio-Convert-Samplerate/workflows/CI/badge.svg)
 
 ## Description
 
@@ -11,7 +11,7 @@ data using libsamplerate (http://www.mega-nerd.com/libsamplerate/)
 the implementation of which is both fairly quick and accurate.
 
 The interface is fairly simple, providing methods to work with native
-C arrays where the raw speed is important as well as perl arrays where
+C arrays where the raw speed is important as well as Raku arrays where
 further processing is required on the data.
 
 The native library is designed to work only with 32 bit floating point
@@ -36,8 +36,7 @@ http://www.mega-nerd.com/libsamplerate/download.html
 
 I am however unlikely to be able to offer help with installing it this way.
 
-Assuming you have a working perl6 installation you should be able to
-install this with *zef* :
+Assuming you have a working raku installation you should be able to install this with *zef* :
 
     # From the source directory
    
@@ -51,10 +50,10 @@ Other install mechanisms may be become available in the future.
 
 ## Support
 
-Suggestions/patches are welcomed via github at https://github.com/jonathanstowe/Audio-Convert-Samplerate/issues
+Suggestions/patches are welcomed via [github](https://github.com/jonathanstowe/Audio-Convert-Samplerate/issues)
 
 ## Licence
 
 Please see the [LICENCE](LICENCE) file in the distribution
 
-© Jonathan Stowe 2015, 2016, 2017, 2019
+© Jonathan Stowe 2015 - 2021

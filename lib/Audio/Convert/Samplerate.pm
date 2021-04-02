@@ -22,8 +22,8 @@ Audio::Convert::Samplerate - perform samplerate conversion on audio data
     my Audio::Convert::Samplerate $conv-obj =  Audio::Convert::Samplerate.new(channels => $in-obj.channels);
     my Int $sr = ($in-obj.samplerate * $ratio).Int;
 
-    my Audio::Sndfile $out-obj = Audio::Sndfile.new(filename   => $test-file-out, 
-                                                    channels   => $in-obj.channels, 
+    my Audio::Sndfile $out-obj = Audio::Sndfile.new(filename   => $test-file-out,
+                                                    channels   => $in-obj.channels,
                                                     format     => $in-obj.format,
                                                     samplerate => $sr,  :w);
 
@@ -50,7 +50,7 @@ data using libsamplerate (http://www.mega-nerd.com/libsamplerate/)
 the implementation of which is both fairly quick and accurate.
 
 The interface is fairly simple, providing methods to work with native
-C arrays where the raw speed is important as well as perl arrays where
+C arrays where the raw speed is important as well as Raku arrays where
 further processing is required on the data.
 
 The native library is designed to work only with 32 bit floating point
@@ -78,9 +78,9 @@ the enum C<Type> with one of thse values:
 
 =item Medium
 
-=item Fastest 
+=item Fastest
 
-=item OrderHold 
+=item OrderHold
 
 =item Linear
 
@@ -172,7 +172,7 @@ methods will throw an exception if supplied an invalid ratio.
 
 =end pod
 
-class Audio::Convert::Samplerate:ver<0.0.8>:auth<github:jonathanstowe>:api<1.0> {
+class Audio::Convert::Samplerate:ver<0.0.9>:auth<github:jonathanstowe>:api<1.0> {
     use NativeCall;
     use NativeHelpers::Array;
 
@@ -359,4 +359,4 @@ class Audio::Convert::Samplerate:ver<0.0.8>:auth<github:jonathanstowe>:api<1.0> 
 
 }
 
-# vim: expandtab shiftwidth=4 ft=perl6
+# vim: expandtab shiftwidth=4 ft=raku

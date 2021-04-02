@@ -1,9 +1,8 @@
-#!perl6
+#!raku
 
-use v6.c;
+use v6;
 
 use Test;
-plan 216;
 
 use LibraryCheck;
 
@@ -171,7 +170,9 @@ my $test-file-out   = $test-data.child("test-out-{ $*PID }.wav");
         my Bool $last = (@data.elems != ($bufsize * $in-obj.channels));
 
         my @buf;
-        lives-ok { @buf = $conv-obj.process-int(@data, 2, $last) }, "process { @data.elems / $in-obj.channels } frames (ints as an array)";
+        #lives-ok {
+            @buf = $conv-obj.process-int(@data, 2, $last) ;
+            #}, "process { @data.elems / $in-obj.channels } frames (ints as an array)";
         $out-frames-total += @buf.elems;
         last if $last;
     }
@@ -181,4 +182,4 @@ my $test-file-out   = $test-data.child("test-out-{ $*PID }.wav");
 
 
 done-testing;
-# vim: expandtab shiftwidth=4 ft=perl6
+# vim: expandtab shiftwidth=4 ft=raku

@@ -1,4 +1,4 @@
-#!perl6
+#!raku
 
 use v6.c;
 use Test;
@@ -24,4 +24,4 @@ diag "testing with samplerate version " ~ $v;
 
 done-testing;
 
-# vim: expandtab shiftwidth=4 ft=perl6
+# vim: expandtab shiftwidth=4 ft=raku

@@ -1,4 +1,4 @@
-#!perl6
+#!raku
 
 use v6;
 
@@ -31,4 +31,4 @@ loop {
 $in-obj.close;
 $out-obj.close;
 
-# vim: expandtab shiftwidth=4 ft=perl6
+# vim: expandtab shiftwidth=4 ft=raku
