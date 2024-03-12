@@ -7,7 +7,7 @@
   "raku": "6.*",
   "license": "Artistic-2.0",
   "api": "1.0",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "auth": "zef:jonathanstowe",
   "support": {
     "source": "https://github.com/jonathanstowe/Audio-Convert-Samplerate.git"
@@ -16,7 +16,7 @@
     "Jonathan Stowe <jns+git@gellyfish.co.uk>"
   ],
   "provides": {
-    "Audio::Convert::Samplerate": "lib/Audio/Convert/Samplerate.pm"
+    "Audio::Convert::Samplerate": "lib/Audio/Convert/Samplerate.rakumod"
   },
   "meta-version": "1",
   "resources": [

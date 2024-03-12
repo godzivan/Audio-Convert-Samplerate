@@ -2,7 +2,7 @@
 
 Convert the samplerate of PCM audio data using libsamplerate (AKA "Secret Rabbit Code".)
 
-![Build Status](https://github.com/jonathanstowe/Audio-Convert-Samplerate/workflows/CI/badge.svg)
+[![CI](https://github.com/jonathanstowe/Audio-Convert-Samplerate/actions/workflows/main.yml/badge.svg)](https://github.com/jonathanstowe/Audio-Convert-Samplerate/actions/workflows/main.yml)
 
 ## Description
 
@@ -56,4 +56,4 @@ Suggestions/patches are welcomed via [github](https://github.com/jonathanstowe/A
 
 Please see the [LICENCE](LICENCE) file in the distribution
 
-© Jonathan Stowe 2015 - 2021
+© Jonathan Stowe 2015 - 2024

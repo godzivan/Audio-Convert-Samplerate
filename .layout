@@ -70,7 +70,7 @@
               "children": [
                 {
                   "type": "file",
-                  "name": "Samplerate.pm"
+                  "name": "Samplerate.rakumod"
                 }
               ]
             }
